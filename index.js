@@ -13,6 +13,6 @@ const server = new ApolloServer({
 (async function main() {
   await mongoose.connect(MONGODB, { useNewUrlParser: true });
   console.log("MONGO STARTED");
-  const { url } = await server.listen(4000);
+  const { url } = await server.listen(80);
   console.log(`🚀  SERVER READY AT ${url}`);
 })();
