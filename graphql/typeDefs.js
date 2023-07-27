@@ -42,7 +42,7 @@ module.exports = gql`
     categoryId: String
   }
   type Product {
-    uuid: String!
+    _id: String
     name: String!
     slug: String
     description: String
@@ -55,6 +55,7 @@ module.exports = gql`
     categoryId: String
     createdAt: String!
     updatedAt: String
+    cosa: String
   }
   # Gallery
   input ProductImageInput {
