@@ -50,6 +50,7 @@ module.exports = gql`
     endTime: String
     storeId: String
     categoryId: String
+    photos: [ProductPhoto]
     createdAt: String!
     updatedAt: String
   }

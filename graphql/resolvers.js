@@ -27,6 +27,11 @@ module.exports = {
       return await User.findById(id);
     },
   },
+  Product: {
+    photos: (parent, args, context) => {
+      return ProductPhoto.find({ productId: parent.id });
+    },
+  },
   Mutation: {
     async createProduct(
       _,

@@ -2,7 +2,6 @@ const { model, Schema } = require("mongoose");
 
 const productSchema = new Schema({
   id: String,
-  uuid: String,
   name: String,
   slug: String,
   description: String,
@@ -10,7 +9,6 @@ const productSchema = new Schema({
   salePrice: Number,
   isAuction: Boolean,
   endTime: String,
-  mainImg: String,
   storeId: String,
   categoryId: String,
   createdAt: String,
