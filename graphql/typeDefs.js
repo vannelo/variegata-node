@@ -4,7 +4,7 @@ module.exports = gql`
   type Query {
     product(id: ID!): Product!
     getProducts(id: ID): [Product]
-    productImage(id: ID!): ProductImage!
+    productPhoto(id: ID!): ProductPhoto!
     store(id: ID!): Store!
     category(id: ID!): Category!
     user(id: ID!): User!
@@ -13,7 +13,7 @@ module.exports = gql`
     createProduct(productInput: ProductInput): Product!
     deleteProduct(ID: ID!): Boolean
     updateProduct(ID: ID!, productInput: ProductUpdateInput): Boolean
-    createProductImage(productImageInput: ProductImageInput): ProductImage!
+    createProductPhoto(productPhotoInput: ProductPhotoInput): ProductPhoto!
     createStore(storeInput: StoreInput): Store!
     createCategory(categoryInput: CategoryInput): Category!
     createUser(userInput: UserInput): User!
@@ -55,16 +55,15 @@ module.exports = gql`
     categoryId: String
     createdAt: String!
     updatedAt: String
-    cosa: String
   }
   # Gallery
-  input ProductImageInput {
-    url: String!
+  input ProductPhotoInput {
     productId: String
+    url: String!
   }
-  type ProductImage {
-    url: String!
+  type ProductPhoto {
     productId: String
+    url: String!
   }
   # Store types
   input StoreInput {

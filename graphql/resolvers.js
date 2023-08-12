@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const slug = require("slug");
 const Product = require("../models/Product");
-const ProductImage = require("../models/ProductImage");
+const ProductPhoto = require("../models/ProductPhoto");
 const Store = require("../models/Store");
 const Category = require("../models/Category");
 const User = require("../models/User");
@@ -14,8 +14,8 @@ module.exports = {
     async product(_, { id }, __) {
       return await Product.findById(id);
     },
-    async productImage(_, { id }, __) {
-      return await ProductImage.findById(id);
+    async productPhoto(_, { id }, __) {
+      return await ProductPhoto.findById(id);
     },
     async store(_, { id }, __) {
       return await Store.findById(id);
@@ -102,13 +102,12 @@ module.exports = {
       ).modifiedCount;
       return updated ? true : false;
     },
-    async createProductImage(_, { productImageInput: { url, productId } }) {
-      const createdProductImage = new ProductImage({
-        url: url,
-        productId,
+    async createProductPhoto(_, { productPhotoInput: { url, productId } }) {
+      const createdProductPhoto = new ProductPhoto({
+        url,
         productId,
       });
-      const res = await createdProductImage.save();
+      const res = await createdProductPhoto.save();
       return {
         id: res.id,
         ...res._doc,
