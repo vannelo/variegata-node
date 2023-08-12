@@ -26,7 +26,6 @@ module.exports = gql`
     salePrice: Float
     isAuction: Boolean
     endTime: String
-    mainImg: String
     storeId: String
     categoryId: String
   }
@@ -37,7 +36,6 @@ module.exports = gql`
     salePrice: Float
     isAuction: Boolean
     endTime: String
-    mainImg: String
     storeId: String
     categoryId: String
   }
@@ -50,7 +48,6 @@ module.exports = gql`
     salePrice: Float
     isAuction: Boolean
     endTime: String
-    mainImg: String
     storeId: String
     categoryId: String
     createdAt: String!
