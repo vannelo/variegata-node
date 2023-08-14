@@ -40,7 +40,8 @@ module.exports = gql`
     categoryId: String
   }
   type Product {
-    _id: String
+    id: String
+    asdasd: String
     name: String!
     slug: String
     description: String
@@ -96,6 +97,7 @@ module.exports = gql`
     slug: String
     description: String
   }
+
   # User types
   input UserAddressInput {
     street: String

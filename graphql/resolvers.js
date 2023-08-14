@@ -11,7 +11,9 @@ module.exports = {
     async getProducts(_, __, ___) {
       return await Product.find({});
     },
-
+    async product(_, { id }, __) {
+      return await Product.findById(id);
+    },
     async productPhoto(_, { id }, __) {
       return await ProductPhoto.findById(id);
     },
@@ -26,9 +28,10 @@ module.exports = {
     },
   },
   Product: {
-    photos: (parent, args, context) => {
-      console.log(parent);
-      return ProductPhoto.find({ productId: parent.id });
+    photos: async (parent, _, __) => {
+      const photos = await ProductPhoto.find({});
+      const id = parent._id.toString();
+      return photos.filter((photo) => photo.productId === id);
     },
   },
   Mutation: {
