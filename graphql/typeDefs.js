@@ -40,7 +40,7 @@ module.exports = gql`
     categoryId: String
   }
   type Product {
-    id: String
+    _id: String
     asdasd: String
     name: String!
     slug: String
