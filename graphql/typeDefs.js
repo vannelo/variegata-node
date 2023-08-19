@@ -76,7 +76,7 @@ module.exports = gql`
     description: String
   }
   type Store {
-    uuid: String!
+    _id: String
     name: String!
     slug: String
     description: String
