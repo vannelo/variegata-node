@@ -3,8 +3,9 @@ const { gql } = require("apollo-server");
 module.exports = gql`
   type Query {
     product(id: ID!): Product!
-    getProducts(id: ID): [Product]
+    getProducts: [Product]
     productPhoto(id: ID!): ProductPhoto!
+    getStores: [Store]
     store(id: ID!): Store!
     category(id: ID!): Category!
     user(id: ID!): User!
