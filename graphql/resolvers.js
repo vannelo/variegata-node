@@ -17,6 +17,9 @@ module.exports = {
     async productPhoto(_, { id }, __) {
       return await ProductPhoto.findById(id);
     },
+    async getStores(_, __, ___) {
+      return await Store.find({});
+    },
     async store(_, { id }, __) {
       return await Store.findById(id);
     },
