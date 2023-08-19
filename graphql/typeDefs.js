@@ -6,7 +6,7 @@ module.exports = gql`
     getProducts: [Product]
     productPhoto(id: ID!): ProductPhoto!
     getStores: [Store]
-    store(id: ID!): Store!
+    store(slug: String!): Store!
     category(id: ID!): Category!
     user(id: ID!): User!
   }

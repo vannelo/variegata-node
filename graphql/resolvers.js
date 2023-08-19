@@ -20,8 +20,8 @@ module.exports = {
     async getStores(_, __, ___) {
       return await Store.find({});
     },
-    async store(_, { id }, __) {
-      return await Store.findById(id);
+    async store(_, { slug }, __) {
+      return await Store.findOne({ slug: slug });
     },
     async category(_, { id }, __) {
       return await Category.findById(id);
