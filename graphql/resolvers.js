@@ -41,7 +41,13 @@ module.exports = {
       return Store.findById(id);
     },
   },
-
+  Store: {
+    products: async (parent, _, __) => {
+      const products = await Product.find({});
+      const id = parent._id.toString();
+      return products.filter((product) => product.storeId === id);
+    },
+  },
   Mutation: {
     async createProduct(
       _,

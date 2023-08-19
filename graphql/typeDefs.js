@@ -86,6 +86,7 @@ module.exports = gql`
     instagram: String
     city: String
     phone: String
+    products: [Product]
   }
   # Category types
   input CategoryInput {
