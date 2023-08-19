@@ -36,7 +36,12 @@ module.exports = {
       const id = parent._id.toString();
       return photos.filter((photo) => photo.productId === id);
     },
+    store: async (parent, _, __) => {
+      const id = parent.storeId;
+      return Store.findById(id);
+    },
   },
+
   Mutation: {
     async createProduct(
       _,
@@ -129,7 +134,6 @@ module.exports = {
     ) {
       const nameSlug = slug(name);
       const createdStore = new Store({
-        uuid: uuidv4(),
         name: name,
         slug: nameSlug,
         description: description,

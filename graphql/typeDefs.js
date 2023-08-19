@@ -51,6 +51,7 @@ module.exports = gql`
     isAuction: Boolean
     endTime: String
     storeId: String
+    store: Store
     categoryId: String
     photos: [ProductPhoto]
     createdAt: String!
