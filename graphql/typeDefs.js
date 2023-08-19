@@ -67,7 +67,6 @@ module.exports = gql`
   # Store types
   input StoreInput {
     name: String!
-    slug: String
     logo: String
     facebook: String
     instagram: String
