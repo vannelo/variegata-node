@@ -17,7 +17,8 @@ module.exports = {
       );
     },
     async product(_, { id }, __) {
-      return await Product.findById(id);
+      const objId = ObjectId.fromString(id);
+      return await Product.findById(objId);
     },
     async productPhoto(_, { id }, __) {
       return await ProductPhoto.findById(id);
