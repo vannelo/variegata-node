@@ -1,4 +1,4 @@
-const { ObjectID } = require("mongodb");
+const mongoose = require("mongoose");
 const slug = require("slug");
 const Product = require("../models/Product");
 const ProductPhoto = require("../models/ProductPhoto");
@@ -18,7 +18,7 @@ module.exports = {
       );
     },
     async product(_, { id }, __) {
-      const objId = ObjectID.fromString(id);
+      const objId = mongoose.Types.ObjectId(id);
       return await Product.findById(objId);
     },
     async productPhoto(_, { id }, __) {
