@@ -4,6 +4,7 @@ module.exports = gql`
   type Query {
     product(id: ID!): Product!
     getProducts: [Product]
+    searchProducts(searchTerm: String): [Product]
     productPhoto(id: ID!): ProductPhoto!
     getStores: [Store]
     store(slug: String!): Store

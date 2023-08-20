@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require("uuid");
 const slug = require("slug");
 const Product = require("../models/Product");
 const ProductPhoto = require("../models/ProductPhoto");
@@ -10,6 +9,12 @@ module.exports = {
   Query: {
     async getProducts(_, __, ___) {
       return await Product.find({});
+    },
+    async searchProducts(_, { searchTerm }, ___) {
+      const products = await Product.find({});
+      return products.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     },
     async product(_, { id }, __) {
       return await Product.findById(id);
