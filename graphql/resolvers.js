@@ -18,7 +18,7 @@ module.exports = {
       );
     },
     async product(_, { id }, __) {
-      const objId = mongoose.Types.ObjectId(id);
+      const objId = new mongoose.Types.ObjectId(id);
       return await Product.findById(objId);
     },
     async productPhoto(_, { id }, __) {
