@@ -5,6 +5,7 @@ const ProductPhoto = require("../models/ProductPhoto");
 const Store = require("../models/Store");
 const Category = require("../models/Category");
 const User = require("../models/User");
+const Bid = require("../models/Bid");
 
 module.exports = {
   Query: {
@@ -25,6 +26,11 @@ module.exports = {
     },
     async getStores(_, __, ___) {
       return await Store.find({});
+    },
+    async productBids(_, __, ___) {
+      const bids = await Bid.find({});
+      const productId = parent._id.toString();
+      return bids.filter((bid) => bid.productId === productId);
     },
     async store(_, { slug }, __) {
       return await Store.findOne({ slug: slug });
@@ -201,6 +207,24 @@ module.exports = {
         city: city,
       });
       const res = await createdUser.save();
+      return {
+        id: res.id,
+        ...res._doc,
+      };
+    },
+    async createBid(_, { bidInput: { productId, userId, amount } }) {
+      const date = new Date();
+      const CSToffSet = -360;
+      const offset = CSToffSet * 60 * 1000;
+      const CSTTime = new Date(date.getTime() + offset);
+      const CSTFinalTime = new Date(CSTTime).toISOString();
+      const createdBid = new Bid({
+        productId: productId,
+        userId: userId,
+        amount: parseInt(amount),
+        timestamp: CSTFinalTime,
+      });
+      const res = await createdBid.save();
       return {
         id: res.id,
         ...res._doc,

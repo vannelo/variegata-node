@@ -6,6 +6,7 @@ module.exports = gql`
     getProducts: [Product]
     searchProducts(searchTerm: String): [Product]
     productPhoto(id: ID!): ProductPhoto!
+    productBids(productId: String!): [Bid]
     getStores: [Store]
     store(slug: String!): Store
     category(id: ID!): Category!
@@ -19,6 +20,7 @@ module.exports = gql`
     createStore(storeInput: StoreInput): Store!
     createCategory(categoryInput: CategoryInput): Category!
     createUser(userInput: UserInput): User!
+    createBid(bidInput: BidInput): Bid!
   }
   # Product types
   input ProductInput {
@@ -134,7 +136,6 @@ module.exports = gql`
     phone: String
   }
   type User {
-    uuid: String!
     name: String
     username: String
     email: String
@@ -146,5 +147,17 @@ module.exports = gql`
     address: AddressSchema
     createdAt: String
     updatedAt: String
+  }
+  input BidInput {
+    productId: String
+    userId: String
+    amount: Float
+  }
+  type Bid {
+    _id: String
+    productId: String
+    userId: String
+    amount: Float
+    timestamp: String
   }
 `;
