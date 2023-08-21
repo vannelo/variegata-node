@@ -57,6 +57,7 @@ module.exports = gql`
     store: Store
     categoryId: String
     photos: [ProductPhoto]
+    bids: [Bid]
     createdAt: String!
     updatedAt: String
   }

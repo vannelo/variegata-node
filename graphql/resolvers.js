@@ -27,11 +27,6 @@ module.exports = {
     async getStores(_, __, ___) {
       return await Store.find({});
     },
-    async productBids(_, __, ___) {
-      const bids = await Bid.find({});
-      const productId = parent._id.toString();
-      return bids.filter((bid) => bid.productId === productId);
-    },
     async store(_, { slug }, __) {
       return await Store.findOne({ slug: slug });
     },
@@ -43,14 +38,19 @@ module.exports = {
     },
   },
   Product: {
+    store: async (parent, _, __) => {
+      const id = parent.storeId;
+      return Store.findById(id);
+    },
     photos: async (parent, _, __) => {
       const photos = await ProductPhoto.find({});
       const id = parent._id.toString();
       return photos.filter((photo) => photo.productId === id);
     },
-    store: async (parent, _, __) => {
-      const id = parent.storeId;
-      return Store.findById(id);
+    bids: async (parent, _, __) => {
+      const bids = await Bid.find({});
+      const productId = parent._id.toString();
+      return bids.filter((bid) => bid.productId === productId);
     },
   },
   Store: {
