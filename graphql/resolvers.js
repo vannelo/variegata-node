@@ -218,17 +218,34 @@ module.exports = {
       const offset = CSToffSet * 60 * 1000;
       const CSTTime = new Date(date.getTime() + offset);
       const CSTFinalTime = new Date(CSTTime).toISOString();
-      const createdBid = new Bid({
-        productId: productId,
-        userId: userId,
-        amount: parseInt(amount),
-        timestamp: CSTFinalTime,
+
+      const sortedBids = await Bid.find({ productId: productId }).sort({
+        amount: -1,
       });
-      const res = await createdBid.save();
-      return {
-        id: res.id,
-        ...res._doc,
-      };
+      const greatestBid = sortedBids[0].amount;
+
+      // Verificando que la oferta nueva sea mayor a la mayor oferta actual
+      if (amount > greatestBid) {
+        const createdBid = new Bid({
+          productId: productId,
+          userId: userId,
+          amount: parseInt(amount),
+          timestamp: CSTFinalTime,
+        });
+        const res = await createdBid.save();
+        return {
+          id: res.id,
+          ...res._doc,
+        };
+      } else {
+        const error = {
+          code: 403,
+          message:
+            "El monto de la oferta debe ser mayor al monto más alto de la subasta: $" +
+            greatestBid,
+        };
+        throw new Error(JSON.stringify(error));
+      }
     },
   },
 };
