@@ -7,6 +7,7 @@ module.exports = gql`
     searchProducts(searchTerm: String): [Product]
     productPhoto(id: ID!): ProductPhoto!
     productBids(productId: String!): [Bid]
+    getProductBids(productId: String!): [Bid]
     getStores: [Store]
     store(slug: String!): Store
     category(id: ID!): Category!

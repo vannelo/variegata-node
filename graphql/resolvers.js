@@ -36,6 +36,9 @@ module.exports = {
     async user(_, { id }, __) {
       return await User.findById(id);
     },
+    async getProductBids(_, { productId }, __) {
+      return await Bid.find({ productId: productId });
+    },
   },
   Product: {
     store: async (parent, _, __) => {
