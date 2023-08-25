@@ -224,7 +224,23 @@ module.exports = {
       });
       const greatestBid = sortedBids[0].amount;
 
-      // Verificando que la oferta nueva sea mayor a la mayor oferta actual
+      // Currency format conversion
+      const formattedAmount = greatestBid.toLocaleString("en", {
+        style: "currency",
+        currency: "USD",
+      });
+
+      // Validating difference between new bid and greatest bid
+      if (amount - greatestBid > 100) {
+        const error = {
+          code: 403,
+          message:
+            "¡No tan rápido!, el máximo de incremento por oferta es de $100.00",
+        };
+        throw new Error(JSON.stringify(error));
+      }
+
+      // Validating new bid is greater than greatest bid
       if (amount > greatestBid) {
         const createdBid = new Bid({
           productId: productId,
@@ -241,8 +257,8 @@ module.exports = {
         const error = {
           code: 403,
           message:
-            "El monto de la oferta debe ser mayor al monto más alto de la subasta: $" +
-            greatestBid,
+            "El monto de la oferta debe ser mayor al monto más alto de la subasta: " +
+            formattedAmount,
         };
         throw new Error(JSON.stringify(error));
       }
