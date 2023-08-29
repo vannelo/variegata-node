@@ -6,6 +6,7 @@ const Store = require("../models/Store");
 const Category = require("../models/Category");
 const User = require("../models/User");
 const Bid = require("../models/Bid");
+const { shuffleArray } = require("../utils/utils");
 
 module.exports = {
   Query: {
@@ -38,6 +39,38 @@ module.exports = {
     },
     async getProductBids(_, { productId }, __) {
       return await Bid.find({ productId: productId });
+    },
+    async getRelatedAuctions(_, { productId }, __) {
+      const products = await Product.find({});
+      const product = await Product.findById(productId);
+      const productNameArr = product.name.split(" ");
+      let productsArr = [];
+
+      // Find products that match the words in the product name
+      for (const word of productNameArr) {
+        const productsFound = products.filter((product) =>
+          product.name.toLowerCase().includes(word.toLowerCase())
+        );
+        if (productsFound.length > 0) {
+          productsArr = [...productsArr, ...productsFound];
+        }
+      }
+
+      // If productsArr length is not greater than 12, add random products
+      if (productsArr.length < 12) {
+        const randomProducts = await Product.aggregate([
+          { $sample: { size: 12 - productsArr.length } },
+        ]);
+        productsArr = [...productsArr, ...randomProducts];
+      }
+
+      // Shuffle the array of results
+      const shuffled = productsArr
+        .map((value) => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value);
+
+      return shuffled;
     },
   },
   Product: {
