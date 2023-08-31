@@ -6,7 +6,6 @@ const Store = require("../models/Store");
 const Category = require("../models/Category");
 const User = require("../models/User");
 const Bid = require("../models/Bid");
-const { shuffleArray } = require("../utils/utils");
 
 module.exports = {
   Query: {
