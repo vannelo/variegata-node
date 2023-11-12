@@ -253,6 +253,29 @@ module.exports = {
       const offset = CSToffSet * 60 * 1000;
       const CSTTime = new Date(date.getTime() + offset);
       const CSTFinalTime = new Date(CSTTime).toISOString();
+      const productBids = await Bid.find({ productId: productId });
+
+      if (productBids.length === 0) {
+        if (amount > 1000) {
+          const error = {
+            code: 403,
+            message:
+              "¡No tan rápido! el monto máximo de la primera oferta es de $1,000.00",
+          };
+          throw new Error(JSON.stringify(error));
+        }
+        const createdBid = new Bid({
+          productId: productId,
+          userId: userId,
+          amount: parseInt(amount),
+          timestamp: CSTFinalTime,
+        });
+        const res = await createdBid.save();
+        return {
+          id: res.id,
+          ...res._doc,
+        };
+      }
 
       const sortedBids = await Bid.find({ productId: productId }).sort({
         amount: -1,
@@ -270,7 +293,7 @@ module.exports = {
         const error = {
           code: 403,
           message:
-            "¡No tan rápido!, el máximo de incremento por oferta es de $100.00",
+            "¡No tan rápido! el incremento máximo por oferta es de $100.00",
         };
         throw new Error(JSON.stringify(error));
       }
