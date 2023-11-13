@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const slug = require("slug");
 const Product = require("../models/Product");
 const ProductPhoto = require("../models/ProductPhoto");
@@ -6,6 +5,7 @@ const Store = require("../models/Store");
 const Category = require("../models/Category");
 const User = require("../models/User");
 const Bid = require("../models/Bid");
+const Review = require("../models/Review");
 
 module.exports = {
   Query: {
@@ -86,6 +86,9 @@ module.exports = {
       const bids = await Bid.find({});
       const productId = parent._id.toString();
       return bids.filter((bid) => bid.productId === productId);
+    },
+    reviews: async (parent, _, __) => {
+      const reviews = await Review.find({});
     },
   },
   Store: {
@@ -320,6 +323,22 @@ module.exports = {
         };
         throw new Error(JSON.stringify(error));
       }
+    },
+    async createReview(
+      _,
+      { reviewInput: { storeId, userId, rating, comment } }
+    ) {
+      const createdReview = new Review({
+        storeId: storeId,
+        userId: userId,
+        rating: rating,
+        comment: comment,
+      });
+      const res = await createdReview.save();
+      return {
+        id: res.id,
+        ...res._doc,
+      };
     },
   },
 };

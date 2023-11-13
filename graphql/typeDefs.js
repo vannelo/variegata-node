@@ -23,6 +23,7 @@ module.exports = gql`
     createCategory(categoryInput: CategoryInput): Category!
     createUser(userInput: UserInput): User!
     createBid(bidInput: BidInput): Bid!
+    createReview(reviewInput: ReviewInput): Review!
   }
   # Product types
   input ProductInput {
@@ -60,6 +61,7 @@ module.exports = gql`
     categoryId: String
     photos: [ProductPhoto]
     bids: [Bid]
+    reviews: [Review]
     createdAt: String!
     updatedAt: String
   }
@@ -161,6 +163,20 @@ module.exports = gql`
     productId: String
     userId: String
     amount: Float
+    timestamp: String
+  }
+  input ReviewInput {
+    userId: String
+    storeId: String
+    rating: Float
+    comment: String
+  }
+  type Review {
+    _id: String
+    userId: String
+    storeId: String
+    rating: Float
+    comment: String
     timestamp: String
   }
 `;
