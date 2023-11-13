@@ -87,15 +87,17 @@ module.exports = {
       const productId = parent._id.toString();
       return bids.filter((bid) => bid.productId === productId);
     },
-    reviews: async (parent, _, __) => {
-      const reviews = await Review.find({});
-    },
   },
   Store: {
     products: async (parent, _, __) => {
       const products = await Product.find({});
       const id = parent._id.toString();
       return products.filter((product) => product.storeId === id);
+    },
+    reviews: async (parent, _, __) => {
+      const reviews = await Review.find({});
+      const id = parent._id.toString();
+      return reviews.filter((review) => review.storeId === id);
     },
   },
   Mutation: {

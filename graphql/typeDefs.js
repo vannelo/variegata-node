@@ -61,7 +61,6 @@ module.exports = gql`
     categoryId: String
     photos: [ProductPhoto]
     bids: [Bid]
-    reviews: [Review]
     createdAt: String!
     updatedAt: String
   }
@@ -95,6 +94,7 @@ module.exports = gql`
     city: String
     phone: String
     products: [Product]
+    reviews: [Review]
   }
   # Category types
   input CategoryInput {
