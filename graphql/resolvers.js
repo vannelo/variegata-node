@@ -330,11 +330,24 @@ module.exports = {
       _,
       { reviewInput: { storeId, userId, rating, comment } }
     ) {
+      // If the user has already reviewed the store, throw error
+      const userReviews = await Review.find({ userId: userId });
+      const userReviewsIds = userReviews.map((review) => review.storeId);
+      if (userReviewsIds.includes(storeId)) {
+        const error = {
+          code: 403,
+          message: "Ya has reseñado esta tienda",
+        };
+        throw new Error(JSON.stringify(error));
+      }
+
+      // Otherwise, create the review
       const createdReview = new Review({
         storeId: storeId,
         userId: userId,
         rating: rating,
         comment: comment,
+        createdAt: new Date().toISOString(),
       });
       const res = await createdReview.save();
       return {
