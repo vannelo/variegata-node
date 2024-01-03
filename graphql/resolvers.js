@@ -237,7 +237,6 @@ module.exports = {
       }
     ) {
       const createdUser = new User({
-        uuid: uuidv4(),
         name: name,
         username: username,
         email: email,
