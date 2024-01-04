@@ -222,28 +222,10 @@ module.exports = {
         ...res._doc,
       };
     },
-    async createUser(
-      _,
-      {
-        userInput: {
-          name,
-          username,
-          email,
-          password,
-          photo,
-          description,
-          city,
-        },
-      }
-    ) {
+    async createUser(_, { userInput: { email, aws_id } }) {
       const createdUser = new User({
-        name: name,
-        username: username,
         email: email,
-        password: password,
-        photo: photo,
-        description: description,
-        city: city,
+        aws_id: aws_id,
       });
       const res = await createdUser.save();
       return {
