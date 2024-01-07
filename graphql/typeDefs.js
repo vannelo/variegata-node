@@ -122,7 +122,7 @@ module.exports = gql`
     name: String
     username: String
     email: String
-    password: String
+    aws_id: String
     description: String
     photo: String
     city: String
