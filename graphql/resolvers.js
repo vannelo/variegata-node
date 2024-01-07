@@ -226,15 +226,20 @@ module.exports = {
       };
     },
     async createUser(_, { userInput: { email, aws_id } }) {
-      const createdUser = new User({
-        email: email,
-        aws_id: aws_id,
-      });
-      const res = await createdUser.save();
-      return {
-        id: res.id,
-        ...res._doc,
-      };
+      // check if user already exists
+      const userExists = await User.findOne({ aws_id: aws_id });
+      if (!userExists) {
+        const createdUser = new User({
+          email: email,
+          aws_id: aws_id,
+        });
+        const res = await createdUser.save();
+        return {
+          id: res.id,
+          ...res._doc,
+        };
+      }
+      return userExists;
     },
     async createBid(_, { bidInput: { productId, userId, amount } }) {
       const date = new Date();
