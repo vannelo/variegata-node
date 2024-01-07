@@ -13,7 +13,7 @@ module.exports = gql`
     category(id: ID!): Category!
     user(id: ID!): User!
     getRelatedAuctions(productId: String!): [Product]
-    checkUser(aws_id: String): User
+    checkUser(awsId: String): User
   }
   type Mutation {
     createProduct(productInput: ProductInput): Product!

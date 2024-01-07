@@ -71,8 +71,8 @@ module.exports = {
 
       return shuffled;
     },
-    async checkUser(_, { aws_id }, __) {
-      return await User.findOne({ aws_id: aws_id });
+    async checkUser(_, { awsId }, __) {
+      return await User.findOne({ aws_id: awsId });
     },
   },
   Product: {
